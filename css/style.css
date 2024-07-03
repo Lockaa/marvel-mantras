@@ -32,9 +32,10 @@ a {
 header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 8px 5%;
-  background-color: var(--primary-color);
+  background-color: rgb(209, 5, 5);
+  color: white;
 }
 
 header nav a {
