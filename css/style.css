@@ -1,7 +1,9 @@
 /*template grabbed from my module 2 homework, just some general styles that will be used, can be tweaked to use later*/
 
 /* IMPORTS */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+@import url('<link href="https://fonts.googleapis.com/css2?family=Anton+SC&display=swap" rel="stylesheet">');
 
 /* VARIABLES */
 :root {
@@ -9,11 +11,11 @@
 }
 
 /* RESETS */
-* {
+/* * {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-}
+} */
 
 html, body {
   height: 100%;
@@ -36,6 +38,8 @@ header {
   padding: 8px 5%;
   background-color: rgb(209, 5, 5);
   color: white;
+  font-family: "Anton SC", sans-serif;
+  
 }
 
 footer {
