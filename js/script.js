@@ -1,8 +1,8 @@
-const $searchBtn = $('#search-btn');
-const $charSelect = $('#char-select');
+const searchBtn = document.querySelector('#search-btn');
+const charInput = document.querySelector('#char-input');
 
-function getCharacters() {
-  const $charSelect = document.querySelector('#char-select');
+function outputSearch() {
+  const charInput = document.querySelector('#char-input');
   const apiKey = 'b32943396b0e19ebdc4710f3fe2bfc10';
 
   const url = `https://gateway.marvel.com/v1/public/characters?apikey=${apiKey}`;
@@ -15,5 +15,5 @@ function getCharacters() {
     })
 }
 
-getCharacters()
+outputSearch()
 
