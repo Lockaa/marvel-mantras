@@ -25,7 +25,8 @@ async function getMarvelCharacters() {
 }
 
 // Usage
-getMarvelCharacters().then(characters => {
+getMarvelCharacters()
+.then(characters => {
+  // Display characters in console
     console.log('Marvel Characters:', characters);
-    // You can now work with the list of characters
 });
