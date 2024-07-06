@@ -8,13 +8,11 @@ const baseURL = 'https://gateway.marvel.com:443/v1/public/characters';
 
 // Function to get characters
 async function getMarvelCharacters() {
-    
+   
     const url = `${baseURL}?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`;
     const response = await fetch(url);
     const data = await response.json();
     
-    // Store data in local storage
-    localStorage.setItem('marvelCharacters', JSON.stringify(data.data.results));
     return data.data.results; // Array of characters
 }
 
