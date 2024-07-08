@@ -188,7 +188,7 @@ function displayCharacter(character) {
   characterContainer.innerHTML = `
 
     const characterContainer = document.getElementById('character-container');
-    characterContainer.innerHTML = `
+    characterContainer.innerHTML = ``
 
         <h2 class="title">${character.name}</h2>
         <img src="${character.thumbnail.path}.${character.thumbnail.extension}" alt="${character.name}">
@@ -196,7 +196,7 @@ function displayCharacter(character) {
     `;
 }
 
-// Function to get saved character from local storage
+{/* </img> Function to get saved character from local storage */}
 function getSavedCharacter() {
 
   const retrievedCharacters = JSON.parse(localStorage.getItem('retrievedCharacters')) || [];
