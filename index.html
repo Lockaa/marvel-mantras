@@ -19,7 +19,7 @@
                     <img src="assets/img/logo.png" alt="Logo" style="height: 50px;">
                 </div>
                 <div class="column">
-                    <p>Tagline goes here</p>
+                    <p>Quote Generator</p>
                 </div>
                 <div class="column">
                     <a href="#" class="icon has-text-white">
@@ -38,8 +38,9 @@
 
     <!-- Main Page Content -->
     <main class="main-content">
-        <section class="background-image"
-            aria-label="Background image or wallpaper of Marvel Comics characters in a large brawl"
+        <!-- Background Image Section -->
+        <section class="background-image">
+            <img src="./assets/img/bg.jpg" aria-label="Background image or wallpaper of Marvel Comics characters in a large brawl"
             alt="Background image or wallpaper of Marvel Comics characters in a large brawl">
         </section>
         
@@ -47,6 +48,26 @@
         <section class="button-container">
             <button id="excelsior-button" class="button is-large is-primary">Excelsior!</button>
         </section>
+
+        <!-- Character Section -->
+        <!-- <section class="section">
+            <div class="container">
+                <div class="buttons">
+                    <button id="generate-character" class="button is-primary">Fetch Random Character</button>
+                    <button id="get-saved-character" class="button is-link">Get Saved Character</button>
+                </div>
+                <div class="field">
+                    <label class="label">Search Character</label>
+                    <div class="control">
+                        <input type="text" id="character-name" class="input" placeholder="Enter character name">
+                    </div>
+                    <button id="search-character" class="button is-info mt-2">Search</button>
+                </div>
+                <div id="character-container" class="box">
+                    !-- Character information will be displayed here --
+                </div>
+            </div>
+        </section> -->
     </main>
 
     <!-- Footer -->
@@ -68,6 +89,7 @@
         </div>
         <button class="modal-close is-large" aria-label="close"></button>
     </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>

@@ -131,4 +131,5 @@ document.addEventListener('DOMContentLoaded', () => {
     modalCloseButton.addEventListener('click', () => {
         modal.classList.remove('is-active');
     });
+
 });
