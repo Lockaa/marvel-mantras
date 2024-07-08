@@ -28,39 +28,8 @@ body {
 }
 
 .footer-container {
-
   background-color: #c3101f;
-  background-color: #ffa07a;
-
-}
-
-.footer-container {
-  background-color: #ffa07a;
   color: white;
-  text-align: center;
-}
-
-.background-image {
-  background-image: url('../assets/img/bg.png');
-  background-size: cover;
-  background-position: center;
-  padding: 2rem;
-  text-align: center;
-}
-
-.modal-content {
-  position: relative;
-  text-align: center;
-
-  color: white;
-  text-align: center;
-}
-
-.background-image {
-  background-image: url('../assets/img/bg.png');
-  background-size: cover;
-  background-position: center;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -70,18 +39,12 @@ body {
   color: white;
 }
 
-.modal-image {
-  width: 100%;
-  height: auto;
-}
-
-.overlay-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-  color: white;
+.background-image {
+  background-image: url('../assets/img/bg.png');
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+  text-align: center;
 }
 
 .modal-image {
