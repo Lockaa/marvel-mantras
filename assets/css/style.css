@@ -1,50 +1,55 @@
 body {
   text-align: center;
-  background: black;
-}
-
-#bnw {
-  position: absolute;
-  top: 40vh;
-  left: 50px;
-}
-
-#colored {
-  position: absolute;
-  top: 40vh;
-  left: 50px;
-  clip-path: polygon(0 0, 0.01% 0, 0.01% 100%, 0 100%);
-}
-
-.img-container {
-  position: relative;
-  width: 300px;
-  margin: 0 auto;
+  background: #f5f5f5; /* Set a light background color */
 }
 
 .header-banner {
-  background-color: #c3101f;
+  background-color: #ff4757;
   color: white;
 }
 
 .footer-container {
-  background-color: #c3101f;
+  background-color: #ff4757;
   color: white;
   text-align: center;
+}
+
+.background-image {
+  background-image: url('/assets/images/bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 50vh; /* Use viewport height for responsiveness */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Adjust height for different screen sizes */
+@media (min-width: 768px) {
+  .background-image {
+      height: 60vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .background-image {
+      height: 70vh;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
 }
 
 .modal-content {
   position: relative;
   text-align: center;
   color: white;
-}
-
-.background-image {
-  background-image: url('../assets/img/bg.png');
-  background-size: cover;
-  background-position: center;
-  padding: 2rem;
-  text-align: center;
 }
 
 .modal-image {
