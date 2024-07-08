@@ -15,7 +15,7 @@ body {
 }
 
 .background-image {
-  background-image: url('/assets/images/bg.png');
+  background-image: url('../images/bg.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -43,7 +43,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
 }
 
 .modal-content {
@@ -65,3 +64,27 @@ body {
   font-size: 2rem;
   color: white;
 }
+
+/* Animation CSS */
+body{
+  text-align: center;
+  background: black;
+}
+#bnw{
+  position: absolute;
+  top:40vh;
+  
+  left:50px;
+}
+#colored{
+  position: absolute;
+  top:40vh;
+  left:50px;
+  clip-path:polygon(0 0,0.01% 0,0.01% 100%,0 100%);
+}
+.img-container{
+  position: relative;
+  width:300px;
+  margin:0px auto;
+}
+

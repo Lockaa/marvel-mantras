@@ -15,8 +15,19 @@ async function getTotalCharacters() {
 async function fetchCharacterByIndex(index) {
   const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1&offset=${index}`;
   const response = await fetch(url);
+  // while waiting for the API response, 
+  while (!response.ok) {
+    console.log("Katie said to put this here");
+  }
   const data = await response.json();
+  
+
+  //while awaiting response: call animation
+
+  //while (!Response.ok) -> https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
+
   return data.data.results[0];
+
 }
 
 // Function to fetch a random character
@@ -96,6 +107,34 @@ function getSavedCharacter() {
     console.log('No character found in local storage.');
   }
 }
+
+// Animation JS
+
+var color=document.getElementById('colored');
+      var x;
+      window.addEventListener('load',function(){setTimeout(function(){doFirst(0);},500)},false);
+      function doFirst(x){
+        if(x==0)
+        {
+          color.style.clipPath="polygon(0 0,100% 0,100% 100%,0 100%)";
+          color.style.transition="clip-path .8s";
+          setTimeout(function(){
+            color.style.clipPath="polygon(99.99% 0,100% 0,100% 100%,99.99% 100%)";
+            color.style.transition="clip-path .8s";
+          },900);
+          x=99.99;
+        }
+        else {
+          color.style.clipPath="polygon(0 0,100% 0,100% 100%,0 100%)";
+          color.style.transition="clip-path .8s";
+          setTimeout(function(){
+            color.style.clipPath="polygon(0 0,0.01% 0,0.01% 100%,0 100%)";
+            color.style.transition="clip-path .8s";
+          },900);
+          x=0;
+        }
+
+        setTimeout(function(){doFirst(x);},1900);}
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
