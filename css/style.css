@@ -1,11 +1,35 @@
-/* Removed everything... 
-Using Bulma framework going forward and will update as necessary */
+body {
+  text-align: center;
+  background: black;
+}
+
+#bnw {
+  position: absolute;
+  top: 40vh;
+  left: 50px;
+}
+
+#colored {
+  position: absolute;
+  top: 40vh;
+  left: 50px;
+  clip-path: polygon(0 0, 0.01% 0, 0.01% 100%, 0 100%);
+}
+
+.img-container {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+}
+
 .header-banner {
-  background-color: #ff4757;
+  background-color: #c3101f;
   color: white;
 }
 
 .footer-container {
+
+  background-color: #c3101f;
   background-color: #ffa07a;
 
 }
@@ -59,6 +83,7 @@ Using Bulma framework going forward and will update as necessary */
   font-size: 2rem;
   color: white;
 }
+
 .modal-image {
   width: 100%;
   height: auto;
@@ -72,4 +97,3 @@ Using Bulma framework going forward and will update as necessary */
   font-size: 2rem;
   color: white;
 }
-
