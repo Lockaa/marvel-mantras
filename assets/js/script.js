@@ -16,9 +16,8 @@ async function fetchCharacterByIndex(index) {
   const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1&offset=${index}`;
   const response = await fetch(url);
   // while waiting for the API response, 
-  while (!response.ok) {
-    console.log("Katie said to put this here");
-  }
+  // while (response.) {
+  // }
   const data = await response.json();
   
 
