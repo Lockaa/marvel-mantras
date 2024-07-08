@@ -15,8 +15,18 @@ async function getTotalCharacters() {
 async function fetchCharacterByIndex(index) {
   const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1&offset=${index}`;
   const response = await fetch(url);
+  // while waiting for the API response, 
+  // while (response.) {
+  // }
   const data = await response.json();
+  
+
+  //while awaiting response: call animation
+
+  //while (!Response.ok) -> https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
+
   return data.data.results[0];
+
 }
 
 // Function to fetch a random character
@@ -39,38 +49,6 @@ async function fetchCharacterByName(name) {
     console.log('No character found with that name.');
   }
 }
-
-// Function to fetch characters by series
-async function fetchCharactersBySeries(seriesId) {
-  const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&series=${seriesId}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  if (data.data.results.length > 0) {
-    const characters = data.data.results;
-    characters.forEach(character => {
-      saveCharacter(character, hasPicture(character));
-    });
-    displayCharacters(characters);
-  } else {
-    console.log('No characters found for that series.');
-  }
-}
-
-async function fetchMultipleCharacters(limit, offset) {
-  const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=${limit}&offset=${offset}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  if (data.data.results.length > 0) {
-    const characters = data.data.results;
-    characters.forEach(character => {
-      saveCharacter(character, hasPicture(character));
-    });
-    displayCharacters(characters);
-  } else {
-    console.log('No characters found.');
-  }
-}
-
 
 // Function to check if a character has a valid picture
 function hasPicture(character) {
@@ -110,17 +88,12 @@ function saveCharacter(character, hasPicture) {
 
 // Function to display character on the page
 function displayCharacter(character) {
-
   const characterContainer = document.getElementById('character-container');
   characterContainer.innerHTML = `
-
-    const characterContainer = document.getElementById('character-container');
-    characterContainer.innerHTML = 
-
-        <h2 class="title">${character.name}</h2>
-        <img src="${character.thumbnail.path}.${character.thumbnail.extension}" alt="${character.name}">
-        <p>${character.description}</p>`
-        ;
+    <h2 class="title">${character.name}</h2>
+    <img src="${character.thumbnail.path}.${character.thumbnail.extension}" alt="${character.name}">
+    <p>${character.description}</p>
+  `;
 }
 
 // Function to get saved character from local storage
@@ -134,76 +107,66 @@ function getSavedCharacter() {
   }
 }
 
-// Animation function
-const color = document.getElementById('colored');
-let x = 0;
+// Animation JS
 
-window.addEventListener('load', function() {
-  setTimeout(function() {
-    doFirst(0);
-  }, 500);
-}, false);
+var color=document.getElementById('colored');
+      var x;
+      window.addEventListener('load',function(){setTimeout(function(){doFirst(0);},500)},false);
+      function doFirst(x){
+        if(x==0)
+        {
+          color.style.clipPath="polygon(0 0,100% 0,100% 100%,0 100%)";
+          color.style.transition="clip-path .8s";
+          setTimeout(function(){
+            color.style.clipPath="polygon(99.99% 0,100% 0,100% 100%,99.99% 100%)";
+            color.style.transition="clip-path .8s";
+          },900);
+          x=99.99;
+        }
+        else {
+          color.style.clipPath="polygon(0 0,100% 0,100% 100%,0 100%)";
+          color.style.transition="clip-path .8s";
+          setTimeout(function(){
+            color.style.clipPath="polygon(0 0,0.01% 0,0.01% 100%,0 100%)";
+            color.style.transition="clip-path .8s";
+          },900);
+          x=0;
+        }
 
-function doFirst(x) {
-  if (x === 0) {
-    color.style.clipPath = "polygon(0 0,100% 0,100% 100%,0 100%)";
-    color.style.transition = "clip-path .8s";
-    setTimeout(function() {
-      color.style.clipPath = "polygon(99.99% 0,100% 0,100% 100%,99.99% 100%)";
-      color.style.transition = "clip-path .8s";
-    }, 900);
-    x = 99.99;
-  } else {
-    color.style.clipPath = "polygon(0 0,100% 0,100% 100%,0 100%)";
-    color.style.transition = "clip-path .8s";
-    setTimeout(function() {
-      color.style.clipPath = "polygon(0 0,0.01% 0,0.01% 100%,0 100%)";
-      color.style.transition = "clip-path .8s";
-    }, 900);
-    x = 0;
-  }
-
-  setTimeout(function() {
-    doFirst(x);
-  }, 1900);
-}
+        setTimeout(function(){doFirst(x);},1900);}
 
 // Event listeners
-const generateBtn = document.getElementById('generate-character');
-generateBtn.addEventListener('click', fetchRandomWithPicture);
+document.addEventListener('DOMContentLoaded', () => {
+  const generateBtn = document.getElementById('generate-character');
+  generateBtn.addEventListener('click', fetchRandomWithPicture);
 
-// const getSavedBtn = document.getElementById('get-saved-character');
-// getSavedBtn.addEventListener('click', getSavedCharacter);
+  const getSavedBtn = document.getElementById('get-saved-character');
+  getSavedBtn.addEventListener('click', getSavedCharacter);
 
+  const searchBtn = document.getElementById('search-character');
+  searchBtn.addEventListener('click', () => {
+    const characterName = document.getElementById('character-name').value;
+    if (characterName) {
+      fetchCharacterByName(characterName);
+    } else {
+      console.log('Please enter a character name.');
+    }
+  });
 
-// const searchBtn = document.getElementById('search-character');
-// searchBtn.addEventListener('click', () => {
-//   const characterName = document.getElementById('character-name').value;
-//   if (characterName) {
-//     fetchCharacterByName(characterName);
-//   } else {
-//     console.log('Please enter a character name.');
-//   }
-// });
+  const modal = document.getElementById('modal');
+  const excelsiorButton = document.getElementById('excelsior-button');
+  const modalExcelsiorButton = document.getElementById('modal-excelsior-button');
+  const modalCloseButton = document.querySelector('.modal-close');
 
-// const seriesBtn = document.getElementById('fetch-by-series');
-// seriesBtn.addEventListener('click', () => {
-//   const seriesId = document.getElementById('series-id').value;
-//   if (seriesId) {
-//     fetchCharactersBySeries(seriesId);
-//   } else {
-//     console.log('Please enter a series ID.');
-//   }
-// });
+  excelsiorButton.addEventListener('click', () => {
+    modal.classList.add('is-active');
+  });
 
-// const multipleBtn = document.getElementById('fetch-multiple');
-// multipleBtn.addEventListener('click', () => {
-//   const limit = document.getElementById('fetch-limit').value;
-//   const offset = document.getElementById('fetch-offset').value;
-//   if (limit && offset) {
-//     fetchMultipleCharacters(limit, offset);
-//   } else {
-//     console.log('Please enter both limit and offset.');
-//   }
-// });
+  modalExcelsiorButton.addEventListener('click', () => {
+    modal.classList.remove('is-active');
+  });
 
+  modalCloseButton.addEventListener('click', () => {
+    modal.classList.remove('is-active');
+  });
+});
