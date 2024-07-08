@@ -1,0 +1,55 @@
+.header-banner {
+  background-color: #ff4757;
+  color: white;
+}
+
+.footer-container {
+  background-color: #ff4757;
+  color: white;
+  text-align: center;
+}
+
+.background-image {
+  background-image: url('../img/bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 50vh; /* Use viewport height for responsiveness */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Adjust height for different screen sizes */
+@media (min-width: 768px) {
+  .background-image {
+      height: 60vh;
+  }
+}
+
+@media (min-width: 1024px) {
+  .background-image {
+      height: 70vh;
+  }
+}
+
+.modal-content {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: white;
+}
