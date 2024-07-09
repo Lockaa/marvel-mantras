@@ -6,9 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marvel Mantras</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-  <script src="js/script.js" defer></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
@@ -19,14 +17,10 @@
         <a href="#" class="has-text-white">Marvel Mantras</a>
       </h1>
       <div class="columns is-vcentered mt-2">
-        <div class="img-container">
-          <img id="bnw" src="http://preview.ibb.co/kEMjQb/marvel.png" width="200">
-          <img id="colored" src="http://preview.ibb.co/fhn2BG/marvel.jpg" width="200">
+        <div class="column">
+          <img src="./assets/images/logo.png" alt="Logo" style="height: 50px;">
         </div>
-        <!-- <div class="column">
-          <img src="assets/img/logo.png" alt="Logo" style="height: 50px;">
-        </div>
-        <div class="column"> -->
+        <div class="column">
           <p>Tagline goes here</p>
         </div>
         <div class="column">
@@ -44,36 +38,42 @@
     </div>
   </header>
 
-  <!-- Excelsior Button Section -->
-  <section class="background-image">
-    <button id="excelsior-button" class="button is-large is-primary">Excelsior!</button>
-  </section>
-
-  <!-- Character Section -->
-  <section class="section">
-    <div class="container">
-      <div class="buttons">
-        <button id="generate-character" class="button is-primary">Fetch Random Character</button>
-        <button id="get-saved-character" class="button is-link">Get Saved Character</button>
-      </div>
-      <div class="field">
-        <label class="label">Search Character</label>
-        <div class="control">
-          <input type="text" id="character-name" class="input" placeholder="Enter character name">
-        </div>
-        <button id="search-character" class="button is-info mt-2">Search</button>
-      </div>
-      <div id="character-container" class="box">
-        <!-- Character information will be displayed here -->
-      </div>
+  <!-- Main Page Content -->
+  <main class="main-content">
+    <!-- Animation Section -->
+    <div class="img-container">
+      <img id="bnw" src="http://preview.ibb.co/kEMjQb/marvel.png" width="200">
+      <img id="colored" src="http://preview.ibb.co/fhn2BG/marvel.jpg" width="200">
     </div>
-  </section>
+    <!-- Background Image section -->
+    <section class="background-image">
+      <section class="button-container">
+        <button id="excelsior-button generate-button" class="button is-large is-primary">Excelsior!</button>
+      </section>
+    </section>
+
+    <!-- Character Section -->
+    <section class="section">
+      <div class="container">
+        <div class="buttons">
+          <button id="generate-character" class="button is-primary">Fetch Random Character</button>
+          <button id="get-saved-character" class="button is-link">Get Saved Character</button>
+        </div>
+        <div class="field">
+          <label class="label">Search Character</label>
+          <div class="control">
+            <input type="text" id="character-name" class="input" placeholder="Enter character name">
+          </div>
+          <button id="search-character" class="button is-info mt-2">Search</button>
+        </div>
+        <div id="character-container" class="box">
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer class="footer footer-container py-4">
-    <div class="container">
-      <p>&copy; 2024 Marvel Mantras. All rights reserved. Sitemap</p>
-    </div>
   </footer>
 
   <!-- Modal -->
@@ -81,14 +81,17 @@
     <div class="modal-background"></div>
     <div class="modal-content">
       <figure class="image">
-        <img src="assets/img/placeholder.png" alt="Placeholder Image" class="modal-image">
+        <img src="./assets/img/placeholder.jpg" alt="Placeholder Image" class="modal-image">
         <div class="overlay-text">Placeholder Text</div>
       </figure>
       <button id="modal-excelsior-button" class="button is-large is-primary mt-4">Excelsior!</button>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
-
