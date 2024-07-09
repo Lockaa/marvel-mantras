@@ -1,15 +1,27 @@
-const publicKey = 'fac6d7c1ee74188e67b2d1496798be03';
-const privateKey = 'ce26b3bbf1d31409a66690dc30f25651cd37ad9e';
+const publicKey = 'b32943396b0e19ebdc4710f3fe2bfc10';
+const privateKey = 'ac3a1cce8976b74359bd98d8f98ed70b507f1fe4';
 const baseUrl = 'https://gateway.marvel.com/v1/public/characters';
-const quoteUrl = 'https://quotes.rest/quote/random.json';
+const quoteUrl = 'https://api.api-ninjas.com/v1/quotes?category=movies';
 const ts = new Date().getTime();
 const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
 
 // Function to get the total number of characters
 async function getTotalCharacters() {
-  const response = await fetch(`${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1`);
-  const data = await response.json();
-  return data.data.total;
+  try {
+    const response = await fetch(`${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+    const data = await response.json();
+    console.log(data);
+    if (!data || !data.data || typeof data.data.total !== 'number') {
+      throw new Error('Unexpected response structure from Marvel API');
+    }
+    return data.data.total;
+  } catch (error) {
+    console.error('Error fetching total characters:', error);
+    throw error;
+  }
 }
 
 // Function to fetch a character by index
@@ -55,20 +67,26 @@ function hasPicture(character) {
 
 // Function to fetch a random character with a valid picture
 async function fetchRandomWithPicture() {
-  let characterWithPic = null;
-
-  while (!characterWithPic) {
-    const character = await fetchRandom();
-    if (hasPicture(character)) {
-      characterWithPic = character;
-      saveCharacter(character, true);
-    } else {
-      saveCharacter(character, false);
+  // try {
+    let characterWithPic = null;
+    while (!characterWithPic) {
+      const character = await fetchRandom();
+      console.log('Fetched random character:', character); // Log fetched character
+      if (hasPicture(character)) {
+        characterWithPic = character;
+        saveCharacter(character, true);
+      } else {
+        saveCharacter(character, false);
+      }
     }
-  }
-
-  displayCharacter(characterWithPic);
+    displayCharacter(characterWithPic);
+  // } 
+  // catch (error) {
+  //   console.error('Error fetching random character with picture:', error);
+  // }
 }
+
+
 
 // Function to save character to local storage
 function saveCharacter(character, hasPicture) {
@@ -106,21 +124,29 @@ function getSavedCharacter() {
 
 // Function to fetch random quote
 async function fetchRandomQuote() {
-  try {
-    const response = await fetch(quoteUrl, {
+  // // try {
+  //   const category = 'movies';
+    const apiKey = 'Onueu8eASpDhYi6WAqoGcA==X7Ri0HjreTAdUiRe';
+    const response = await fetch(`${quoteUrl}` ,{
       headers: {
-        'X-TheySaidSo-Api-Secret': quoteapiKey
+        'X-Api-Key': apiKey,
+        'Content-Type': 'application/json'
       }
     });
     if (!response.ok) {
       throw new Error('Network response was not ok.');
     }
     const data = await response.json();
-    return data.contents.quote;
-  } catch (error) {
+    console.log(data[0].quote);
+    const quoteBox = document.getElementById('quote')
+    quoteBox.innerHTML = `
+    <h3>${data[0].quote}</h3>
+    `
+    return data[0].quote;
+  // } catch (error) {
     console.error('Error fetching quote:', error);
     return null;
-  }
+  // }
 }
 
 // Animation JS
@@ -196,32 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   modalCloseButton.addEventListener('click', () => {
     modal.classList.remove('is-active');
   });
-
-  // Additional event listeners for quote fetch
-  const quoteBtnThen = document.getElementById('quote-fetch-then');
-  quoteBtnThen.addEventListener('click', () => {
-    fetchRandomQuote()
-      .then(quoteText => {
-        console.log('Fetched quote using then:', quoteText);
-        // Handle quote display or other operations
-      })
-      .catch(error => {
-        console.error('Error fetching quote using then:', error);
-      });
-  });
-
-  const quoteBtnAll = document.getElementById('quote-fetch-all');
-  quoteBtnAll.addEventListener('click', () => {
-    Promise.all([
-      fetchRandomWithPicture(),
-      fetchRandomQuote()
-    ]).then(([character, quoteText]) => {
-      console.log('Fetched character and quote using Promise.all:', character, quoteText);
-
-      // Handle character and quote display or other operations
-    }).catch(error => {
-      console.error('Error fetching character and quote using Promise.all:', error);
-    });
-  });
 });
+
+
 
