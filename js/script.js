@@ -185,7 +185,7 @@ function saveCharacter(character, hasPicture) {
 function displayCharacter(character) {
 
   const characterContainer = document.getElementById('character-container');
-  characterContainer.innerHTML = `
+  characterContainer.innerHTML = 
 
     const characterContainer = document.getElementById('character-container');
     characterContainer.innerHTML = `
