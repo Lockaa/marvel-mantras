@@ -207,8 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const modal = document.getElementById('modal');
-  const excelsiorButton = document.getElementById('excelsior-button');
-  const modalExcelsiorButton = document.getElementById('modal-excelsior-button');
+  //const excelsiorButton = document.getElementById('excelsior-button');
+  //const modalExcelsiorButton = document.getElementById('modal-excelsior-button');
   const modalCloseButton = document.querySelector('.modal-close');
 
   excelsiorButton.addEventListener('click', () => {
