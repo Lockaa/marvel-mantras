@@ -1,6 +1,7 @@
 const publicKey = 'fac6d7c1ee74188e67b2d1496798be03';
 const privateKey = 'ce26b3bbf1d31409a66690dc30f25651cd37ad9e';
 const baseUrl = 'https://gateway.marvel.com/v1/public/characters';
+const quoteUrl = 'https://quotes.rest/quote/random.json';
 const ts = new Date().getTime();
 const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
 
@@ -15,18 +16,11 @@ async function getTotalCharacters() {
 async function fetchCharacterByIndex(index) {
   const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1&offset=${index}`;
   const response = await fetch(url);
-  // while waiting for the API response, 
-  // while (response.) {
-  // }
+  if (!response.ok) {
+    throw new Error('Network response was not ok.');
+  }
   const data = await response.json();
-
-
-  //while awaiting response: call animation
-
-  //while (!Response.ok) -> https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
-
   return data.data.results[0];
-
 }
 
 // Function to fetch a random character
@@ -40,6 +34,9 @@ async function fetchRandom() {
 async function fetchCharacterByName(name) {
   const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&nameStartsWith=${name}`;
   const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error('Network response was not ok.');
+  }
   const data = await response.json();
   if (data.data.results.length > 0) {
     const character = data.data.results[0];
@@ -107,6 +104,24 @@ function getSavedCharacter() {
   }
 }
 
+// Function to fetch random quote
+async function fetchRandomQuote() {
+  try {
+    const response = await fetch(quoteUrl, {
+      headers: {
+        'X-TheySaidSo-Api-Secret': quoteapiKey
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+    const data = await response.json();
+    return data.contents.quote;
+  } catch (error) {
+    console.error('Error fetching quote:', error);
+    return null;
+  }
+}
 
 // Animation JS
 var color = document.getElementById('colored');
@@ -138,7 +153,19 @@ function doFirst(x) {
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
   const generateBtn = document.getElementById('generate-character');
-  generateBtn.addEventListener('click', fetchRandomWithPicture);
+  generateBtn.addEventListener('click', async () => {
+    try {
+      const character = await fetchRandomWithPicture();
+      const quote = await fetchRandomQuote();
+      if (character && quote) {
+        console.log('Random Character:', character);
+        console.log('Random Quote:', quote);
+        // Display character and quote on the page or handle as needed
+      }
+    } catch (error) {
+      console.error('Error fetching character or quote:', error);
+    }
+  });
 
   const getSavedBtn = document.getElementById('get-saved-character');
   getSavedBtn.addEventListener('click', getSavedCharacter);
@@ -169,4 +196,32 @@ document.addEventListener('DOMContentLoaded', () => {
   modalCloseButton.addEventListener('click', () => {
     modal.classList.remove('is-active');
   });
+
+  // Additional event listeners for quote fetch
+  const quoteBtnThen = document.getElementById('quote-fetch-then');
+  quoteBtnThen.addEventListener('click', () => {
+    fetchRandomQuote()
+      .then(quoteText => {
+        console.log('Fetched quote using then:', quoteText);
+        // Handle quote display or other operations
+      })
+      .catch(error => {
+        console.error('Error fetching quote using then:', error);
+      });
+  });
+
+  const quoteBtnAll = document.getElementById('quote-fetch-all');
+  quoteBtnAll.addEventListener('click', () => {
+    Promise.all([
+      fetchRandomWithPicture(),
+      fetchRandomQuote()
+    ]).then(([character, quoteText]) => {
+      console.log('Fetched character and quote using Promise.all:', character, quoteText);
+
+      // Handle character and quote display or other operations
+    }).catch(error => {
+      console.error('Error fetching character and quote using Promise.all:', error);
+    });
+  });
 });
+
