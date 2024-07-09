@@ -1,15 +1,16 @@
 body {
   text-align: center;
-  background: #f5f5f5; /* Set a light background color */
+  background: #f5f5f5;
+  /* Set a light background color */
 }
 
 .header-banner {
-  background-color: #ff4757;
+  background-color: #ca101fe3;
   color: white;
 }
 
 .footer-container {
-  background-color: #ff4757;
+  background-color: #ca101fe3;
   color: white;
   text-align: center;
 }
@@ -19,7 +20,8 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 50vh; /* Use viewport height for responsiveness */
+  height: 50vh;
+  /* Use viewport height for responsiveness */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,13 +31,13 @@ body {
 /* Adjust height for different screen sizes */
 @media (min-width: 768px) {
   .background-image {
-      height: 60vh;
+    height: 60vh;
   }
 }
 
 @media (min-width: 1024px) {
   .background-image {
-      height: 70vh;
+    height: 70vh;
   }
 }
 
@@ -66,25 +68,27 @@ body {
 }
 
 /* Animation CSS */
-body{
+body {
   text-align: center;
   background: black;
 }
-#bnw{
+
+#bnw {
   position: absolute;
-  top:40vh;
-  
-  left:50px;
-}
-#colored{
-  position: absolute;
-  top:40vh;
-  left:50px;
-  clip-path:polygon(0 0,0.01% 0,0.01% 100%,0 100%);
-}
-.img-container{
-  position: relative;
-  width:300px;
-  margin:0px auto;
+  top: 40vh;
+
+  left: 50px;
 }
 
+#colored {
+  position: absolute;
+  top: 40vh;
+  left: 50px;
+  clip-path: polygon(0 0, 0.01% 0, 0.01% 100%, 0 100%);
+}
+
+.img-container {
+  position: relative;
+  width: 300px;
+  margin: 0px auto;
+}
