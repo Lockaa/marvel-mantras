@@ -7,30 +7,15 @@ const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
 
 // Function to get the total number of characters
 async function getTotalCharacters() {
-  try {
-    const response = await fetch(`${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok.');
-    }
-    const data = await response.json();
-    console.log(data);
-    if (!data || !data.data || typeof data.data.total !== 'number') {
-      throw new Error('Unexpected response structure from Marvel API');
-    }
-    return data.data.total;
-  } catch (error) {
-    console.error('Error fetching total characters:', error);
-    throw error;
-  }
+  const response = await fetch(`${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1`);
+  const data = await response.json();
+  return data.data.total;
 }
 
 // Function to fetch a character by index
 async function fetchCharacterByIndex(index) {
   const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&limit=1&offset=${index}`;
   const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error('Network response was not ok.');
-  }
   const data = await response.json();
   return data.data.results[0];
 }
@@ -46,18 +31,15 @@ async function fetchRandom() {
 async function fetchCharacterByName(name) {
   const url = `${baseUrl}?apikey=${publicKey}&ts=${ts}&hash=${hash}&nameStartsWith=${name}`;
   const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error('Network response was not ok.');
-  }
   const data = await response.json();
   if (data.data.results.length > 0) {
     const character = data.data.results[0];
     saveCharacter(character, hasPicture(character));
-    displayCharacter(character);
+    displayCharacter(character, true);
   } else {
     console.log('No character found with that name.');
   }
-}
+} 
 
 // Function to check if a character has a valid picture
 function hasPicture(character) {
@@ -66,27 +48,20 @@ function hasPicture(character) {
 }
 
 // Function to fetch a random character with a valid picture
-async function fetchRandomWithPicture() {
-  // try {
-    let characterWithPic = null;
-    while (!characterWithPic) {
-      const character = await fetchRandom();
-      console.log('Fetched random character:', character); // Log fetched character
-      if (hasPicture(character)) {
-        characterWithPic = character;
-        saveCharacter(character, true);
-      } else {
-        saveCharacter(character, false);
-      }
+async function fetchRandomWithPicture(isOptions = false) {
+  let characterWithPic = null;
+  while (!characterWithPic) {
+    const character = await fetchRandom();
+    if (hasPicture(character)) {
+      characterWithPic = character;
+      saveCharacter(character, true);
+    } else {
+      saveCharacter(character, false);
     }
-    displayCharacter(characterWithPic);
-  // } 
-  // catch (error) {
-  //   console.error('Error fetching random character with picture:', error);
-  // }
+  }
+
+  displayCharacter(characterWithPic, isOptions);
 }
-
-
 
 // Function to save character to local storage
 function saveCharacter(character, hasPicture) {
@@ -102,21 +77,29 @@ function saveCharacter(character, hasPicture) {
 }
 
 // Function to display character on the page
-function displayCharacter(character) {
-  const characterContainer = document.getElementById('character-container');
+async function displayCharacter(character, isOptions = false) {
+  const characterContainer = document.getElementById(isOptions ? 'character-container-options' : 'character-container');
+  const modalContent = document.getElementById(isOptions ? 'modal-options-content' : 'modal-content');
+  characterContainer.style.backgroundColor = 'black';
+  characterContainer.style.color = 'white';
+  const quote = await fetchRandomQuote();
   characterContainer.innerHTML = `
     <h2 class="title">${character.name}</h2>
-    <img src="${character.thumbnail.path}.${character.thumbnail.extension}" alt="${character.name}">
     <p>${character.description}</p>
+    <img src="${character.thumbnail.path}.${character.thumbnail.extension}" alt="${character.name}">
+    <h2 class="title">Quote</h2>
+    <p>${quote}</p>
   `;
+  // Make the modal content visible
+  modalContent.style.opacity = 1;
 }
 
 // Function to get saved character from local storage
-function getSavedCharacter() {
+function getSavedCharacter(isOptions = false) {
   const retrievedCharacters = JSON.parse(localStorage.getItem('retrievedCharacters')) || [];
   if (retrievedCharacters.length > 0) {
     const character = retrievedCharacters[retrievedCharacters.length - 1];
-    displayCharacter(character);
+    displayCharacter(character, isOptions);
   } else {
     console.log('No character found in local storage.');
   }
@@ -124,8 +107,7 @@ function getSavedCharacter() {
 
 // Function to fetch random quote
 async function fetchRandomQuote() {
-  // // try {
-  //   const category = 'movies';
+  try {
     const apiKey = 'Onueu8eASpDhYi6WAqoGcA==X7Ri0HjreTAdUiRe';
     const response = await fetch(`${quoteUrl}` ,{
       headers: {
@@ -137,64 +119,47 @@ async function fetchRandomQuote() {
       throw new Error('Network response was not ok.');
     }
     const data = await response.json();
-    console.log(data[0].quote);
-    const quoteBox = document.getElementById('quote')
-    quoteBox.innerHTML = `
-    <h3>${data[0].quote}</h3>
-    `
     return data[0].quote;
-  // } catch (error) {
+  } catch (error) {
     console.error('Error fetching quote:', error);
     return null;
-  // }
+  }
 }
 
 // Animation JS
-var color = document.getElementById('colored');
+
+var color=document.getElementById('colored');
 var x;
-window.addEventListener('load', function () { setTimeout(function () { doFirst(0); }, 500) }, false);
-function doFirst(x) {
-  if (x == 0) {
-    color.style.clipPath = "polygon(0 0,100% 0,100% 100%,0 100%)";
-    color.style.transition = "clip-path .8s";
-    setTimeout(function () {
-      color.style.clipPath = "polygon(99.99% 0,100% 0,100% 100%,99.99% 100%)";
-      color.style.transition = "clip-path .8s";
-    }, 900);
-    x = 99.99;
-  }
-  else {
-    color.style.clipPath = "polygon(0 0,100% 0,100% 100%,0 100%)";
-    color.style.transition = "clip-path .8s";
-    setTimeout(function () {
-      color.style.clipPath = "polygon(0 0,0.01% 0,0.01% 100%,0 100%)";
-      color.style.transition = "clip-path .8s";
-    }, 900);
-    x = 0;
+window.addEventListener('load',function(){setTimeout(function(){doFirst(0);},500)},false);
+function doFirst(x){
+  if(x==0) {
+    color.style.clipPath="polygon(0 0,100% 0,100% 100%,0 100%)";
+    color.style.transition="clip-path .8s";
+    setTimeout(function(){
+      color.style.clipPath="polygon(99.99% 0,100% 0,100% 100%,99.99% 100%)";
+      color.style.transition="clip-path .8s";
+    },900);
+    x=99.99;
+  } else {
+    color.style.clipPath="polygon(0 0,100% 0,100% 100%,0 100%)";
+    color.style.transition="clip-path .8s";
+    setTimeout(function(){
+      color.style.clipPath="polygon(0 0,0.01% 0,0.01% 100%,0 100%)";
+      color.style.transition="clip-path .8s";
+    },900);
+    x=0;
   }
 
-  setTimeout(function () { doFirst(x); }, 1900);
+  setTimeout(function(){doFirst(x);},1900);
 }
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
   const generateBtn = document.getElementById('generate-character');
-  generateBtn.addEventListener('click', async () => {
-    try {
-      const character = await fetchRandomWithPicture();
-      const quote = await fetchRandomQuote();
-      if (character && quote) {
-        console.log('Random Character:', character);
-        console.log('Random Quote:', quote);
-        // Display character and quote on the page or handle as needed
-      }
-    } catch (error) {
-      console.error('Error fetching character or quote:', error);
-    }
-  });
+  generateBtn.addEventListener('click', () => fetchRandomWithPicture(true));
 
   const getSavedBtn = document.getElementById('get-saved-character');
-  getSavedBtn.addEventListener('click', getSavedCharacter);
+  getSavedBtn.addEventListener('click', () => getSavedCharacter(true));
 
   const searchBtn = document.getElementById('search-character');
   searchBtn.addEventListener('click', () => {
@@ -207,22 +172,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const modal = document.getElementById('modal');
+  const modalOptions = document.getElementById('modalOptions');
   const excelsiorButton = document.getElementById('excelsior-button');
+  const optionsButton = document.getElementById('options-button')
   const modalExcelsiorButton = document.getElementById('modal-excelsior-button');
-  const modalCloseButton = document.querySelector('.modal-close');
+  const modalCloseButton = document.querySelectorAll('.modal-close');
 
   excelsiorButton.addEventListener('click', () => {
     modal.classList.add('is-active');
+    fetchRandomWithPicture();
+  });
+
+  optionsButton.addEventListener('click', () => {
+    modalOptions.classList.add('is-active');
+    fetchRandomWithPicture(true);
   });
 
   modalExcelsiorButton.addEventListener('click', () => {
-    modal.classList.remove('is-active');
+    fetchRandomWithPicture();
   });
 
-  modalCloseButton.addEventListener('click', () => {
+  modalCloseButton.forEach(button => button.addEventListener('click', () => {
     modal.classList.remove('is-active');
-  });
+    modalOptions.classList.remove('is-active');
+  }));
 });
-
-
-

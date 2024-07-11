@@ -17,22 +17,8 @@
         <a href="#" class="has-text-white">Marvel Mantras</a>
       </h1>
       <div class="columns is-vcentered mt-2">
-        <div class="column">
-          <img src="./assets/images/logo.png" alt="Logo" style="height: 50px;">
-        </div>
-        <div class="column">
+        <div class="column is-12">
           <p>A FUSION BETWEEN EVERYONE'S FAVORITE SUPERHEROES AND INSIGHTFUL QUOTES!</p>
-        </div>
-        <div class="column">
-          <a href="#" class="icon has-text-white">
-            <i class="fab fa-facebook"></i>
-          </a>
-          <a href="#" class="icon has-text-white ml-2">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="icon has-text-white ml-2">
-            <i class="fab fa-instagram"></i>
-          </a>
         </div>
       </div>
     </div>
@@ -40,37 +26,12 @@
 
   <!-- Main Page Content -->
   <main class="main-content">
-    <!-- Animation Section -->
-    <div class="img-container">
-      <img id="bnw" src="http://preview.ibb.co/kEMjQb/marvel.png" width="200">
-      <img id="colored" src="http://preview.ibb.co/fhn2BG/marvel.jpg" width="200">
-    </div>
     <!-- Background Image section -->
     <section class="background-image">
       <section class="button-container">
-        <button id="excelsior-button" class="button is-large is-primary">Randomize Character</button>
+        <button id="excelsior-button" class="button is-large is-primary">Generate Random!</button>
+        <button id="options-button" class="button is-large is-primary">Generate Options!</button>
       </section>
-    </section>
-
-    <!-- Character Section -->
-    <section class="section">
-      <div class="container">
-        <div class="buttons">
-          <button id="generate-character" class="button is-primary">Fetch Random Character</button>
-          <button id="get-saved-character" class="button is-link">Get Saved Character</button>
-        </div>
-        <div class="field">
-          <label class="label">Search Character</label>
-          <div class="control">
-            <input type="text" id="character-name" class="input" placeholder="Enter character name">
-          </div>
-          <button id="search-character" class="button is-info mt-2">Search</button>
-        </div>
-        <div id="character-container" class="box">
-          <!-- Character details will be displayed here dynamically -->
-        </div>
-        <div id="quote"></div>
-      </div>
     </section>
   </main>
 
@@ -83,15 +44,57 @@
 
   <!-- Modal -->
   <div id="modal" class="modal">
-    <div class="modal-background"></div>
-    <div class="modal-content">
-      <figure class="image">
-        <!-- <img src=".assets/img/placeholder.jpg" alt="Placeholder Image" class="modal-image"> -->
-        <div class="overlay-text"></div>
-      </figure>
-      <button id="modal-excelsior-button" class="button is-large is-primary mt-4"></button>
+    <div class="modal-background">
+      <div class="modal-content" id="modal-content">
+        <button class="modal-close is-large" aria-label="close"></button>
+        <div id="character-container" class="box">
+          <!-- Animation Section -->
+          <div class="img-container">
+            <img id="bnw" src="http://preview.ibb.co/kEMjQb/marvel.png" width="200">
+            <img id="colored" src="http://preview.ibb.co/fhn2BG/marvel.jpg" width="200">
+          </div>
+          <!-- Character details will be displayed here dynamically -->
+        </div>
+        <div id="quote"></div>
+        <button id="modal-excelsior-button" class="button is-large is-primary">Excelsior!</button>
+      </div>
     </div>
-    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+  <!-- Modal w/ Options -->
+  <div id="modalOptions" class="modal">
+    <div class="modal-background">
+      <div class="modal-content" id="modal-options-content">
+        <button class="modal-close is-large" aria-label="close"></button>
+        <div id="character-container-options" class="box">
+          <!-- Animation Section -->
+          <div class="img-container">
+            <img id="bnw-options" src="http://preview.ibb.co/kEMjQb/marvel.png" width="200">
+            <img id="colored-options" src="http://preview.ibb.co/fhn2BG/marvel.jpg" width="200">
+          </div>
+          <!-- Character details will be displayed here dynamically -->
+        </div>
+        <div id="search-form">
+          <!-- search section -->
+          <section class="section">
+            <div class="container">
+              <div class="buttons">
+                <button id="generate-character" class="button is-primary">Fetch Random Character</button>
+                <button id="get-saved-character" class="button is-link">Get Saved Character</button>
+              </div>
+              <div class="field">
+                <label class="label">Search Character</label>
+                <div class="control">
+                  <input type="text" id="character-name" class="input" placeholder="Enter character name">
+                </div>
+                <button id="search-character" class="button is-info mt-2">Search</button>
+              </div>
+              <div id="quote-options"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->
