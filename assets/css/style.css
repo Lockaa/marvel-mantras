@@ -1,7 +1,15 @@
-body {
-  text-align: center;
-  background: #f5f5f5;
-  /* Set a light background color */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .header-banner {
@@ -13,6 +21,15 @@ body {
   background-color: #ca101fe3;
   color: white;
   text-align: center;
+  padding: 10px 0;
+  margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
 }
 
 .background-image {
@@ -20,42 +37,72 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 50vh;
-  /* Use viewport height for responsiveness */
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-/* Adjust height for different screen sizes */
-@media (min-width: 768px) {
-  .background-image {
-    height: 60vh;
-  }
-}
-
-@media (min-width: 1024px) {
-  .background-image {
-    height: 70vh;
-  }
+  padding: 20px;
 }
 
 .button-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+.button {
+  margin: 12px 12px 0;
 }
 
 .modal-content {
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: white;
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
   color: white;
 }
 
 .modal-image {
   width: 100%;
   height: auto;
+}
+
+.title {
+  color: white;
+}
+
+#modal-excelsior-button {
+  background-color: #ca101f;
+  color: white;
+  margin-top: 20px;
+  display: block;
+  margin: 64px auto 0;
+}
+
+#character-container {
+  background-color: transparent;
+}
+
+#search-form {
+  background-color: black;
 }
 
 .overlay-text {
@@ -68,27 +115,46 @@ body {
 }
 
 /* Animation CSS */
-body {
-  text-align: center;
-  background: black;
+.img-container {
+  position: relative;
+  background-color: lightgrey;
+  margin-bottom: 20px;
 }
 
 #bnw {
   position: absolute;
-  top: 40vh;
-
-  left: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #colored {
   position: absolute;
-  top: 40vh;
-  left: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   clip-path: polygon(0 0, 0.01% 0, 0.01% 100%, 0 100%);
 }
 
-.img-container {
-  position: relative;
-  width: 300px;
-  margin: 0px auto;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-banner {
+    padding: 10px;
+  }
+  
+  .background-image {
+    height: 30vh;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+
+  .img-container img {
+    width: 150px;
+  }
 }
