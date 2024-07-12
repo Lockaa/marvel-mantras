@@ -47,8 +47,8 @@ THEN I experience the functionality of the application, including API interactio
 
 The following images show the web application's appearance and functionality:
 
-![Application Screenshot](./Assets/screenshot1.png)
-![Application Screenshot](./Assets/screenshot2.png)
+![Application Screenshot](./assets/images/screenshot1.png)
+![Application Screenshot](./assets/images/screenshot2.png)
 
 ## Presentation Requirements
 

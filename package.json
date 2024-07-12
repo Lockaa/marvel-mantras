@@ -1,0 +1,15 @@
+{
+  "name": "marvel-mantras",
+  "version": "1.0.0",
+  "description": "Marvel Mantras is an interactive front-end application developed as part of a group project. The application leverages multiple server-side APIs to provide users with an engaging and dynamic experience. This project showcases our ability to build a responsive and polished web application that can be presented to potential employers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
+}
